@@ -1,35 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as THREE from 'three'
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 import { Canvas, extend, useThree, useFrame } from "react-three-fiber";
 import { useSpring, a  } from "react-spring/three";
 
 import './style.css'
 
-import Box from '../components/box';
-import Plane from '../components/plane';
-import Header from '../components/header';
+import Box from '../components/3dcomponents/box';
+import Plane from '../components/3dcomponents/plane';
+import Guitar from '../components/3dcomponents/guitar';
+import SpaceShip from '../components/3dcomponents/spaceship';
 
-extend({ OrbitControls })
 
-const Controls = () => {
-  const orbitRef = useRef()
-  const { camera, gl } = useThree()
+import Controls from '../components/controls';
 
-  useFrame(() => {
-    orbitRef.current.update()
-  })
+import Header from '../components/2dcomponents/Header/header';
 
-  return (
-    <orbitControls
-      autoRotate
-      maxPolarAngle={Math.PI / 3}
-      minPolarAngle={Math.PI / 3}
-      args={[camera, gl.domElement]}
-      ref={orbitRef}
-    />
-    )
-}
 
 export default () => (
   <div>
@@ -38,10 +24,18 @@ export default () => (
     gl.shadowMap.enabled = true
     gl.shadowMap.type = THREE.PCFSoftShadowMap
   }}>
-    <fog attach="fog" args={["white", 5, 15]}/>
+    <fog attach="fog" args={["white", 15, 25]}/>
     <Controls />
-    <Box />
-    <Plane />
+    <Box position={[-1.2, 0, 0]} />
+    <SpaceShip />
+    {/* <Plane /> */}
+    {/* <Guitar /> */}
+    <ambientLight intensity={0.5} />
+      <spotLight
+        position={[15, 20, 5]}
+        penumbra={1}
+        castShadow
+        />
   </Canvas>
   </div>
   )
