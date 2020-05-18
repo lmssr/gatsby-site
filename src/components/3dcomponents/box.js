@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSpring, a  } from "react-spring/three";
 
 const Box = () => {
@@ -8,6 +8,8 @@ const Box = () => {
     scale: active ? [1.5, 1.5, 1.5] : [1, 1, 1],
     color: hovered ? "hotpink" : "gray"
   })
+
+
 
 
   return (
